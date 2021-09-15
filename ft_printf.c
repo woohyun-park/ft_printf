@@ -2,6 +2,7 @@
 
 #include <stdarg.h>
 #include <unistd.h>
+#include "libft/libft.h"
 
 void write_c(va_list ap, const char *str)
 {
@@ -34,18 +35,20 @@ void write_s(va_list ap, const char *str)
 
 // }
 
-// void write_d(va_list ap, const char *str)
-// {
-//     char    *arg;
-//     int     d;
+void write_d(va_list ap, const char *str)
+{
+    char            *arg;
+    long long int   d;
 
-//     d = va_arg(ap, int);
-//     if (d < 0)
-//     {
-//         write(1, "-", 1);
-
-//     }
-// }
+    d = va_arg(ap, int);
+    if (d < 0)
+    {
+        write(1, "-", 1);
+        str++;
+        d *= -1;
+    }
+    arg = ft_itoa((int)d);
+}
 
 void write_percent(const char *str)
 {
@@ -62,7 +65,7 @@ int format(va_list ap, const char **str)
     if (**str == 'p')
         write(1, "%p", 2);
     if (**str == 'd')
-        write(1, "%d", 2);
+        write_d(ap, *str);
     if (**str == 'i')
         write(1, "%i", 2);
     if (**str == 'u')
@@ -94,7 +97,6 @@ int ft_printf(const char *str, ...)
             write(1, str++, 1);
             num_result++;
         }
-        //서식지정자가 들어왔을때 처리
         else
         {
             str++;
@@ -112,5 +114,6 @@ int main(void)
 {
     ft_printf("Hello, world! %c\n", 'a');
     ft_printf("Hello, world! %s\n", "abcdefg");
+    ft_printf("Hello, world! %d\n", 123412351);
     ft_printf("Hello, world! %%\n");
 }

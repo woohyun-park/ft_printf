@@ -35,10 +35,13 @@ void write_s(va_list ap, const char *str)
 
 // }
 
-void write_d(va_list ap, const char *str)
+
+//
+void write_dec(va_list ap, const char *str)
 {
     char            *arg;
     long long int   d;
+    int             len;
 
     d = va_arg(ap, int);
     if (d < 0)
@@ -48,6 +51,21 @@ void write_d(va_list ap, const char *str)
         d *= -1;
     }
     arg = ft_itoa((int)d);
+    len = ft_strlen(arg);
+    write(1, arg, len);
+    str += len;
+}
+
+void write_udec(va_list ap, const char *str)
+{
+    char            *arg;
+    long long int   d;
+
+    d = va_arg(ap, int);
+    if (d < 0)
+        d *= -1;
+    arg = ft_itoa((int)d);
+    write(1, arg, ft_strlen(arg));
 }
 
 void write_percent(const char *str)
@@ -64,10 +82,8 @@ int format(va_list ap, const char **str)
         write_s(ap, *str);
     if (**str == 'p')
         write(1, "%p", 2);
-    if (**str == 'd')
-        write_d(ap, *str);
-    if (**str == 'i')
-        write(1, "%i", 2);
+    if (**str == 'd' || **str == 'i')
+        write_dec(ap, *str);
     if (**str == 'u')
         write(1, "%u", 2);
     if (**str == 'x')
@@ -114,6 +130,7 @@ int main(void)
 {
     ft_printf("Hello, world! %c\n", 'a');
     ft_printf("Hello, world! %s\n", "abcdefg");
-    ft_printf("Hello, world! %d\n", 123412351);
+    ft_printf("Hello, world! %d\n", 111111);
+    ft_printf("Hello, world! %i\n", 222222);
     ft_printf("Hello, world! %%\n");
 }

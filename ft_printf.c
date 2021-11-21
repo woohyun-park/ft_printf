@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "libft/libft.h"
+#include "write_x.c"
 
 void	write_c(va_list ap, const char *str)
 {
@@ -26,52 +27,44 @@ void	write_s(va_list ap, const char *str)
 	str += i;
 }
 
-// void write_p(va_list ap, const char *str)
-// {
-//	 char				*arg;
-//	 unsigned long int   p;
+void write_p(va_list ap, const char *str)
+{
+	write(1, "0x", 2);
+	write_x(ap, str, 0);
+}
 
-//	 p = va_arg(ap, unsigned long int);
-
-// }
-
-
-//
 void	write_d(va_list ap, const char *str)
 {
 	char			*arg;
-	long long int	d;
+	long long int	num;
 	int				len;
 
-	d = va_arg(ap, int);
-	if (d < 0)
+	num = va_arg(ap, int);
+	if (num < 0)
 	{
 		write(1, "-", 1);
 		str++;
-		d *= -1;
+		num *= -1;
 	}
-	arg = ft_itoa((int)d);
+	arg = ft_itoa((int)num);
 	len = ft_strlen(arg);
 	write(1, arg, len);
 	str += len;
 }
 
-void	write_u(va_list ap, const char *str)
+void	write_diu(va_list ap, const char *str, int flag)
 {
 	char			*arg;
-	long long int	d;
+	long long int	num;
 
-	d = va_arg(ap, int);
-	if (d < 0)
-		d *= -1;
-	arg = ft_itoa((int)d);
+	num = va_arg(ap, long long int);
+	if (num < 0)
+		num *= -1;
+	if (flag == 0 || flag == 1)
+		arg = ft_itoa((long long int)num);
+	else
+		arg = ft_itoa((unsigned long long int)num);
 	write(1, arg, ft_strlen(arg));
-}
-
-void	write_percent(const char *str)
-{
-	write(1, "%", 1);
-	str++;
 }
 
 int	format(va_list ap, const char **str)
@@ -81,17 +74,19 @@ int	format(va_list ap, const char **str)
 	if (**str == 's')
 		write_s(ap, *str);
 	if (**str == 'p')
-		write(1, "%p", 2);
-	if (**str == 'd' || **str == 'i')
-		write_d(ap, *str);
+		write_p(ap, *str);
+	if (**str == 'd')
+		write_diu(ap, *str, 0);
+	if (**str == 'i')
+		write_diu(ap, *str, 1);
 	if (**str == 'u')
-		write(1, "%u", 2);
+		write_diu(ap, *str, 2);
 	if (**str == 'x')
-		write(1, "%x", 2);
+		write_x(ap, *str, 0);
 	if (**str == 'X')
-		write(1, "%X", 2);
+		write_x(ap, *str, 1);
 	if (**str == '%')
-		write_percent(*str);
+		write(1, "%", 1);
 	(*str)++;
 	return (1);
 }
@@ -126,17 +121,40 @@ int	ft_printf(const char *str, ...)
 	return (num_result);
 }
 
-#include <stdio.h>
 int main(void)
 {
-	ft_printf("Hello, world! %c\n", 'a');
-	printf("Hello, world! %c\n", 'a');
-	ft_printf("Hello, world! %s\n", "abcdefg");
-	printf("Hello, world! %s\n", "abcdefg");
-	ft_printf("Hello, world! %d\n", 111111);
-	printf("Hello, world! %d\n", 111111);
-	ft_printf("Hello, world! %i\n", 222222);
-	printf("Hello, world! %i\n", 222222);
-	ft_printf("Hello, world! %%\n");
-	printf("Hello, world! %%\n");
+	char c = 'c';
+	ft_printf("c: %c\n", c);
+	printf("c: %c\n", c);
+
+	char *s = "string";
+	ft_printf("s: %s\n", s);
+	printf("s: %s\n", s);
+
+	char *p = "p";
+	ft_printf("p: %p\n", &p);
+	printf("p: %p\n", &p);
+
+	int d = 42;
+	ft_printf("d: %d\n", d);
+	printf("d: %d\n", d);
+
+	int i = 42;
+	ft_printf("i: %i\n", i);
+	printf("i: %i\n", i);
+
+	unsigned int u = 42;
+	ft_printf("u: %u\n", u);
+	printf("u: %u\n", u);
+
+	int x_low = 42;
+	ft_printf("x: %x\n", x_low);
+	printf("x: %x\n", x_low);
+
+	int x_Upp = 42;
+	ft_printf("X: %X\n", x_Upp);
+	printf("X: %X\n", x_Upp);
+
+	ft_printf("%%: %%\n");
+	printf("%%: %%\n");
 }

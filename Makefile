@@ -1,6 +1,6 @@
 NAME		= libftprintf.a
 
-SRCS		= ./ft_printf.c ./write_xp.c ./write_csdiu.c ./util.c
+SRCS		= ./ft_printf.c ./write_xp.c ./write_csdiu.c ./util.c ./util_u.c
 OBJS		= $(SRCS:.c=.o)
 INCS		= .
 RM			= rm -f

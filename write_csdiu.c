@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write_csdiu.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: woopark <woopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/04 18:00:29 by woopark           #+#    #+#             */
+/*   Updated: 2021/12/04 18:00:30 by woopark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	write_c(char c)
@@ -31,6 +43,8 @@ int	write_diu(long long int	num, int flag)
 		arg = ft_itoa((int)num);
 	else
 		arg = ft_itoa_u((unsigned long long int)num);
+	if (arg == NULL)
+		return (-1);
 	len = ft_strlen(arg);
 	write(1, arg, len);
 	free(arg);

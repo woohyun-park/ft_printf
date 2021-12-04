@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write_xp.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: woopark <woopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/04 18:00:08 by woopark           #+#    #+#             */
+/*   Updated: 2021/12/04 18:00:09 by woopark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static int	write_result(int len, unsigned long int num, int isUpper)
@@ -8,6 +20,8 @@ static int	write_result(int len, unsigned long int num, int isUpper)
 	int			pos;
 
 	result = (char *)malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (-1);
 	result[len] = 0;
 	pos = len;
 	while (num > 0)
@@ -46,12 +60,18 @@ int	write_x(unsigned long int num, int isUpper, int isX)
 int	write_p(unsigned long long int num)
 {
 	int	result;
+	int	temp;
 
 	result = 0;
 	result += write(1, "0x", 2);
 	if (num == 0)
 		result += write(1, "0", 1);
 	else
-		result += write_x(num, 0, 0);
+	{
+		temp = write_x(num, 0, 0);
+		if (temp == -1)
+			return (-1);
+		result += temp;
+	}
 	return (result);
 }

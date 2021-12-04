@@ -6,81 +6,6 @@
 // #include "write_x.c"
 #include "ft_printf.h"
 
-static char	*ft_intmax(void)
-{
-	char	*result;
-
-	result = (char *)malloc(12);
-	if (result == 0)
-		return (NULL);
-	result[0] = '-';
-	result[1] = '2';
-	result[2] = '1';
-	result[3] = '4';
-	result[4] = '7';
-	result[5] = '4';
-	result[6] = '8';
-	result[7] = '3';
-	result[8] = '6';
-	result[9] = '4';
-	result[10] = '8';
-	result[11] = 0;
-	return (result);
-}
-
-static int	ft_intlen(int n)
-{
-	int	result;
-
-	if (n <= 0)
-		result = 1;
-	else
-		result = 0;
-	while (n != 0)
-	{
-		n /= 10;
-		result++;
-	}
-	return (result);
-}
-
-char	*ft_itoa2(long long int n)
-{
-	int		len;
-	char	*result;
-	int		i;
-	int		n_new;
-
-	printf("n: %lld\n", n);
-	if (n == -2147483648)
-		return (ft_intmax());
-	len = ft_intlen(n);
-	result = (char *)malloc(ft_intlen(n) + 1);
-	if (!result)
-		return (NULL);
-	result[len] = 0;
-	if (n < 0)
-		n_new = -n;
-	else
-		n_new = n;
-	i = len - 1;
-	while (i > 0)
-	{
-		result[i] = n_new % 10 + '0';
-		n_new /= 10;
-		i--;
-	}
-	if (n < 0)
-		result[0] = '-';
-	else
-		result[0] = n_new % 10 + '0';
-	return (result);
-}
-
-
-
-
-
 int	write_c(char c)
 {
 	write(1, &c, 1);
@@ -119,16 +44,21 @@ int write_p(unsigned long long int num)
 int	write_diu(long long int	num, int flag)
 {
 	char			*arg;
+	char			len;
 
-	if (num < 0)
-		num *= -1;
+	// printf(":%d:", (int)num);
+	// printf(":%s", ft_itoa((int)num));
+	// if (num < 0)
+	// 	num *= -1;
 	if (flag == 0 || flag == 1)
-		arg = ft_itoa((long long int)num);
+		arg = ft_itoa((int)num);
 	else
 		arg = ft_itoa((unsigned long long int)num);
-	write(1, arg, ft_strlen(arg));
-	write(1, "whatever", 8);
-	return (ft_strlen(arg));
+	len = ft_strlen(arg);
+	// printf(":%s:", arg);
+	write(1, arg, len);
+	free(arg);
+	return (len);
 }
 
 int	format(va_list ap, const char **str)
@@ -189,10 +119,10 @@ int	ft_printf(const char *str, ...)
 }
 
 // int main(void){
-// 	printf("%p, %p\n", LONG_MIN, LONG_MAX);
-// 	ft_printf("%p, %p\n", LONG_MIN, LONG_MAX);
-// 	printf("%p, %p\n", ULONG_MAX, -ULONG_MAX);
-// 	ft_printf("%p, %p\n", ULONG_MAX, -ULONG_MAX);
+// 	printf("%d\n", ULONG_MAX - 1);
+// 	ft_printf("%d\n", ULONG_MAX - 1);
+// 	// printf("%d %d %d %d %d %d %d\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+// 	// ft_printf("%d %d %d %d %d %d %d\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
 // }
 
 // int main(void)

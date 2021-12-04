@@ -15,7 +15,6 @@ int	write_x(unsigned long long int num, int flag)
 		tempNum /= 16;
 		len++;
 	}
-	// printf("len: %lld\n", len);
 	char *result = (char *)malloc(sizeof(char) * (len + 1));
 	result[len] = 0;
 	tempLen = len;

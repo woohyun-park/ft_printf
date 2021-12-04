@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: woopark <woopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: woopark <woopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:59:33 by woopark           #+#    #+#             */
-/*   Updated: 2021/12/04 17:59:37 by woopark          ###   ########.fr       */
+/*   Updated: 2021/12/04 18:07:08 by woopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ static int	format(va_list ap, const char **str)
 	result = 0;
 	if (**str == 'c')
 		result = write_c(va_arg(ap, int));
-	if (**str == 's')
+	else if (**str == 's')
 		result = write_s(va_arg(ap, char *));
-	if (**str == 'p')
+	else if (**str == 'p')
 		result = write_p(va_arg(ap, unsigned long long int));
-	if (**str == 'd')
+	else if (**str == 'd')
 		result = write_diu(va_arg(ap, long long int), 0);
-	if (**str == 'i')
+	else if (**str == 'i')
 		result = write_diu(va_arg(ap, long long int), 1);
-	if (**str == 'u')
+	else if (**str == 'u')
 		result = write_diu(va_arg(ap, long long int), 2);
-	if (**str == 'x')
+	else if (**str == 'x')
 		result = write_x(va_arg(ap, unsigned long long int), 0, 1);
-	if (**str == 'X')
+	else if (**str == 'X')
 		result = write_x(va_arg(ap, unsigned long long int), 1, 1);
-	if (**str == '%')
+	else if (**str == '%')
 		result = write(1, "%", 1);
 	(*str)++;
 	return (result);

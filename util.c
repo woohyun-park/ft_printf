@@ -48,6 +48,14 @@ static int	ft_intlen(int n)
 	return (result);
 }
 
+void	assign_sign(int n, char *result, int n_new)
+{
+	if (n < 0)
+		result[0] = '-';
+	else
+		result[0] = n_new % 10 + '0';
+}
+
 char	*ft_itoa(int n)
 {
 	int		len;
@@ -73,9 +81,6 @@ char	*ft_itoa(int n)
 		n_new /= 10;
 		i--;
 	}
-	if (n < 0)
-		result[0] = '-';
-	else
-		result[0] = n_new % 10 + '0';
+	assign_sign(n, result, n_new);
 	return (result);
 }

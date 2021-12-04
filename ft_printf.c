@@ -6,6 +6,81 @@
 // #include "write_x.c"
 #include "ft_printf.h"
 
+static char	*ft_intmax(void)
+{
+	char	*result;
+
+	result = (char *)malloc(12);
+	if (result == 0)
+		return (NULL);
+	result[0] = '-';
+	result[1] = '2';
+	result[2] = '1';
+	result[3] = '4';
+	result[4] = '7';
+	result[5] = '4';
+	result[6] = '8';
+	result[7] = '3';
+	result[8] = '6';
+	result[9] = '4';
+	result[10] = '8';
+	result[11] = 0;
+	return (result);
+}
+
+static int	ft_intlen(int n)
+{
+	int	result;
+
+	if (n <= 0)
+		result = 1;
+	else
+		result = 0;
+	while (n != 0)
+	{
+		n /= 10;
+		result++;
+	}
+	return (result);
+}
+
+char	*ft_itoa2(long long int n)
+{
+	int		len;
+	char	*result;
+	int		i;
+	int		n_new;
+
+	printf("n: %lld\n", n);
+	if (n == -2147483648)
+		return (ft_intmax());
+	len = ft_intlen(n);
+	result = (char *)malloc(ft_intlen(n) + 1);
+	if (!result)
+		return (NULL);
+	result[len] = 0;
+	if (n < 0)
+		n_new = -n;
+	else
+		n_new = n;
+	i = len - 1;
+	while (i > 0)
+	{
+		result[i] = n_new % 10 + '0';
+		n_new /= 10;
+		i--;
+	}
+	if (n < 0)
+		result[0] = '-';
+	else
+		result[0] = n_new % 10 + '0';
+	return (result);
+}
+
+
+
+
+
 int	write_c(char c)
 {
 	write(1, &c, 1);
@@ -33,9 +108,11 @@ int write_p(unsigned long long int num)
 	int result;
 
 	result = 0;
-	write(1, "0x", 2);
-	result += 2;
-	result += write_x(num, 0);
+	result += write(1, "0x", 2);
+	if (num == 0)
+		result += write(1, "0", 1);
+	else
+		result += write_x(num, 0);
 	return result;
 }
 
@@ -50,6 +127,7 @@ int	write_diu(long long int	num, int flag)
 	else
 		arg = ft_itoa((unsigned long long int)num);
 	write(1, arg, ft_strlen(arg));
+	write(1, "whatever", 8);
 	return (ft_strlen(arg));
 }
 
@@ -110,10 +188,12 @@ int	ft_printf(const char *str, ...)
 	return (num_result);
 }
 
-int main(void){
-	printf("NULL %s NULL\n", NULL);
-	ft_printf("NULL %s NULL\n", NULL);
-}
+// int main(void){
+// 	printf("%p, %p\n", LONG_MIN, LONG_MAX);
+// 	ft_printf("%p, %p\n", LONG_MIN, LONG_MAX);
+// 	printf("%p, %p\n", ULONG_MAX, -ULONG_MAX);
+// 	ft_printf("%p, %p\n", ULONG_MAX, -ULONG_MAX);
+// }
 
 // int main(void)
 // {

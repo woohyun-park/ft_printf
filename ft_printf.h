@@ -5,6 +5,7 @@
 
 #include <stdarg.h>
 #include <unistd.h>
+#include <limits.h>
 #include "libft/libft.h"
 
 int	write_c(char c);

@@ -4,16 +4,18 @@ int	write_x(unsigned long long int num, int flag)
 {
 	const char *str_low = "0123456789abcdef";
 	const char *str_upp = "0123456789ABCDEF";
-	long long int	tempNum;
-	long long int	len;
-	long long int	tempLen;
+	unsigned long long int	tempNum;
+	unsigned long long int	len;
+	unsigned long long int	tempLen;
 
+	
 	tempNum = num;
 	len = 0;
 	while (tempNum > 0){
 		tempNum /= 16;
 		len++;
 	}
+	// printf("len: %lld\n", len);
 	char *result = (char *)malloc(sizeof(char) * (len + 1));
 	result[len] = 0;
 	tempLen = len;
@@ -28,3 +30,4 @@ int	write_x(unsigned long long int num, int flag)
 	free(result);
 	return (len);
 }
+

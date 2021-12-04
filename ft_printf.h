@@ -13,7 +13,7 @@ int	write_s(char *s);
 int	write_p(unsigned long long int num);
 int	write_diu(long long int num, int flag);
 int	write_xp(unsigned long int num, int isUpper, int isX);
-int format(va_list ap, const char **str);
 int ft_printf(const char *str, ...);
+char	*ft_itoa_u(unsigned int n);
 
 #endif

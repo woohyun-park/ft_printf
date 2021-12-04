@@ -16,6 +16,11 @@ int	write_s(char *s)
 {
 	int		result;
 
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
 	result = 0;
 	while (s[result])
 		result++;
@@ -103,6 +108,11 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(ap);
 	return (num_result);
+}
+
+int main(void){
+	printf("NULL %s NULL\n", NULL);
+	ft_printf("NULL %s NULL\n", NULL);
 }
 
 // int main(void)

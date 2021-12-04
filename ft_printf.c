@@ -1,9 +1,3 @@
-// #include <stdio.h>
-
-// #include <stdarg.h>
-// #include <unistd.h>
-// #include "libft/libft.h"
-// #include "write_x.c"
 #include "ft_printf.h"
 
 int	write_c(char c)
@@ -37,7 +31,7 @@ int write_p(unsigned long long int num)
 	if (num == 0)
 		result += write(1, "0", 1);
 	else
-		result += write_x(num, 0);
+		result += write_xp(num, 0, 0);
 	return result;
 }
 
@@ -46,16 +40,11 @@ int	write_diu(long long int	num, int flag)
 	char			*arg;
 	char			len;
 
-	// printf(":%d:", (int)num);
-	// printf(":%s", ft_itoa((int)num));
-	// if (num < 0)
-	// 	num *= -1;
 	if (flag == 0 || flag == 1)
 		arg = ft_itoa((int)num);
 	else
 		arg = ft_itoa((unsigned long long int)num);
 	len = ft_strlen(arg);
-	// printf(":%s:", arg);
 	write(1, arg, len);
 	free(arg);
 	return (len);
@@ -79,9 +68,9 @@ int	format(va_list ap, const char **str)
 	if (**str == 'u')
 		result = write_diu(va_arg(ap, long long int), 2);
 	if (**str == 'x')
-		result = write_x(va_arg(ap, unsigned long long int), 0);
+		result = write_xp(va_arg(ap, unsigned long long int), 0, 1);
 	if (**str == 'X')
-		result = write_x(va_arg(ap, unsigned long long int), 1);
+		result = write_xp(va_arg(ap, unsigned long long int), 1, 1);
 	if (**str == '%')
 		result = write(1, "%", 1);
 	(*str)++;
@@ -119,45 +108,16 @@ int	ft_printf(const char *str, ...)
 }
 
 // int main(void){
-// 	printf("%d\n", ULONG_MAX - 1);
-// 	ft_printf("%d\n", ULONG_MAX - 1);
-// 	// printf("%d %d %d %d %d %d %d\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-// 	// ft_printf("%d %d %d %d %d %d %d\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-// }
-
-// int main(void)
-// {
-// 	char c = 'c';
-// 	printf("%d, %d\n\n", ft_printf("c: %c\n", c), printf("c: %c\n", c));
-
-// 	char *s = "string";
-// 	printf("%d, %d\n\n", ft_printf("s: %s\n", s), printf("s: %s\n", s));
-
-// 	char *p = "p";
-// 	printf("%d, %d\n\n", ft_printf("p: %p\n", &p), printf("p: %p\n", &p));
-
-// 	int d = 42;
-// 	printf("%d, %d\n\n", ft_printf("d: %d\n", d), printf("d: %d\n", d));
-
-// 	int i = 42;
-// 	printf("%d, %d\n\n", ft_printf("i: %i\n", i), printf("i: %i\n", i));
-
-// 	unsigned int u = 42;
-// 	printf("%d, %d\n\n", ft_printf("u: %u\n", u), printf("u: %u\n", u));
-
-// 	int x_low = 42;
-// 	printf("%d, %d\n\n", ft_printf("x: %x\n", x_low), printf("x: %x\n", x_low));
-
-// 	int x_upp = 42;
-// 	printf("%d, %d\n\n", ft_printf("X: %X\n", x_upp), printf("X: %X\n", x_upp));
-
-// 	printf("%d, %d\n\n", ft_printf("%%: %%\n"), printf("%%: %%\n"));
-
-// 	// char *p_new = "p";
-// 	// int x_low_new = 42;
-// 	// int x_upp_new = 42;
-// 	// printf("%d, %d\n\n", ft_printf("%c, %s, %p, %d, %i, %u, %x, %X\n", c, s, p_new, d, i ,u, x_low_new, x_upp_new),
-// 	// 	printf("%c, %s, %p, %d, %i, %u, %x, %X\n", c, s, p_new, d, i ,u, x_low_new, x_upp_new));
-// 	// ft_printf("%c, %s, %p, %d, %i, %u, %x, %X\n", c, s, p, d, i ,u, test, x_upp);
-// 	// printf("%c, %s, %p, %d, %i, %u, %x, %X\n", c, s, p, d, i ,u, test, x_upp);
+// 	// printf("%d\n", LONG_MAX);
+	
+// 	// printf("%x\n", LONG_MAX);
+// 	// ft_printf("%x\n", LONG_MAX);
+// 	// printf("%x\n", LONG_MAX + 1);
+// 	// ft_printf("%x\n", LONG_MAX + 1);
+// 	// printf("%x\n", UINT_MAX);
+// 	// ft_printf("%x\n", (unsigned int)UINT_MAX);
+// 	// printf("%x\n", ULONG_MAX);
+// 	// ft_printf("%x\n", (unsigned int)ULONG_MAX);
+// 	printf("%x\n", LONG_MIN);
+// 	ft_printf("%x\n", LONG_MIN);
 // }

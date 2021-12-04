@@ -1,5 +1,61 @@
 #include "ft_printf.h"
 
+static unsigned int	ft_intlen(unsigned int n)
+{
+	unsigned int	result;
+
+	if (n <= 0)
+		result = 1;
+	else
+		result = 0;
+	while (n != 0)
+	{
+		n /= 10;
+		result++;
+	}
+	return (result);
+}
+
+char	*ft_itoa2(unsigned int n)
+{
+	unsigned int		len;
+	char	*result;
+	unsigned int		i;
+	unsigned int		n_new;
+
+	len = ft_intlen(n);
+	result = (char *)malloc(ft_intlen(n) + 1);
+	if (!result)
+		return (NULL);
+	result[len] = 0;
+	if (n < 0)
+		n_new = -n;
+	else
+		n_new = n;
+	i = len - 1;
+	while (i > 0)
+	{
+		result[i] = n_new % 10 + '0';
+		n_new /= 10;
+		i--;
+	}
+	if (n < 0)
+		result[0] = '-';
+	else
+		result[0] = n_new % 10 + '0';
+	return (result);
+}
+
+
+
+
+
+
+
+
+
+
+
 int	write_c(char c)
 {
 	write(1, &c, 1);
@@ -43,7 +99,7 @@ int	write_diu(long long int	num, int flag)
 	if (flag == 0 || flag == 1)
 		arg = ft_itoa((int)num);
 	else
-		arg = ft_itoa((unsigned long long int)num);
+		arg = ft_itoa2((unsigned long long int)num);
 	len = ft_strlen(arg);
 	write(1, arg, len);
 	free(arg);
@@ -108,16 +164,6 @@ int	ft_printf(const char *str, ...)
 }
 
 // int main(void){
-// 	// printf("%d\n", LONG_MAX);
-	
-// 	// printf("%x\n", LONG_MAX);
-// 	// ft_printf("%x\n", LONG_MAX);
-// 	// printf("%x\n", LONG_MAX + 1);
-// 	// ft_printf("%x\n", LONG_MAX + 1);
-// 	// printf("%x\n", UINT_MAX);
-// 	// ft_printf("%x\n", (unsigned int)UINT_MAX);
-// 	// printf("%x\n", ULONG_MAX);
-// 	// ft_printf("%x\n", (unsigned int)ULONG_MAX);
-// 	printf("%x\n", LONG_MIN);
-// 	ft_printf("%x\n", LONG_MIN);
+// 	printf("%u\n", -1);
+// 	ft_printf("%u\n", -1);
 // }

@@ -2,7 +2,7 @@
 
 static int	format(va_list ap, const char **str)
 {
-	int result;
+	int	result;
 
 	result = 0;
 	if (**str == 'c')
@@ -18,16 +18,16 @@ static int	format(va_list ap, const char **str)
 	if (**str == 'u')
 		result = write_diu(va_arg(ap, long long int), 2);
 	if (**str == 'x')
-		result = write_xp(va_arg(ap, unsigned long long int), 0, 1);
+		result = write_x(va_arg(ap, unsigned long long int), 0, 1);
 	if (**str == 'X')
-		result = write_xp(va_arg(ap, unsigned long long int), 1, 1);
+		result = write_x(va_arg(ap, unsigned long long int), 1, 1);
 	if (**str == '%')
 		result = write(1, "%", 1);
 	(*str)++;
 	return (result);
 }
 
-int			ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
 	int		num_result;

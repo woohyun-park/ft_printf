@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int	write_result(int len, unsigned long int num, int isUpper)
+static int	write_result(int len, unsigned long int num, int isUpper)
 {
 	const char	*str_low = "0123456789abcdef";
 	const char	*str_upp = "0123456789ABCDEF";
@@ -23,7 +23,7 @@ int	write_result(int len, unsigned long int num, int isUpper)
 	return (len);
 }
 
-int	write_xp(unsigned long int num, int isUpper, int isX)
+int	write_x(unsigned long int num, int isUpper, int isX)
 {
 	unsigned long int	tempNum;
 	unsigned long int	len;
@@ -52,6 +52,6 @@ int	write_p(unsigned long long int num)
 	if (num == 0)
 		result += write(1, "0", 1);
 	else
-		result += write_xp(num, 0, 0);
+		result += write_x(num, 0, 0);
 	return (result);
 }

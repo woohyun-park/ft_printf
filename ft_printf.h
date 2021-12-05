@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 18:00:02 by woopark           #+#    #+#             */
-/*   Updated: 2021/12/05 11:10:03 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/05 11:20:49 by woopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		write_c(char c);
 int		write_s(char *s);
 int		write_p(unsigned long long int p);
 int		write_diu(long long int num, int flag);
-int     write_x(unsigned int hex, int flag);
+int		write_x(unsigned int hex, int flag);
 
 int		ft_printf(const char *str, ...);
 

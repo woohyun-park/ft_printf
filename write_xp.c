@@ -3,75 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   write_xp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: woopark <woopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 18:00:08 by woopark           #+#    #+#             */
-/*   Updated: 2021/12/04 18:00:09 by woopark          ###   ########.fr       */
+/*   Updated: 2021/12/05 11:09:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	write_result(int len, unsigned long int num, int isUpper)
+void	write_x_sub(unsigned int h, int *len, int flag)
 {
-	const char	*str_low = "0123456789abcdef";
-	const char	*str_upp = "0123456789ABCDEF";
-	char		*result;
-	int			pos;
+	unsigned char	chr;
 
-	result = (char *)malloc(sizeof(char) * (len + 1));
-	if (!result)
-		return (-1);
-	result[len] = 0;
-	pos = len;
-	while (num > 0)
+	if (h == 0)
+		return ;
+	(*len)++;
+	write_x_sub(h / 16, len, flag);
+	chr = h % 16;
+	if (chr < 10)
+		chr += '0';
+	else
 	{
-		if (isUpper == 0)
-			result[--pos] = str_low[num % 16];
+		if (flag == 0)
+			chr += 'a' - 10;
 		else
-			result[--pos] = str_upp[num % 16];
-		num /= 16;
+			chr += 'A' - 10;
 	}
-	write(1, result, len);
-	free(result);
+	write(1, &chr, 1);
+}
+
+int	write_x(unsigned int hex, int flag)
+{
+	int		len;
+
+	if (hex == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
+	len = 0;
+	write_x_sub(hex, &len, flag);
 	return (len);
 }
 
-int	write_x(unsigned long int num, int isUpper, int isX)
+void	write_p_sub(unsigned long long int p, int *len)
 {
-	unsigned long int	tempNum;
-	unsigned long int	len;
+	unsigned char	chr;
 
-	if (isX == 1)
-		tempNum = (unsigned int)num;
-	else
-		tempNum = num;
-	if (tempNum == 0)
-		return (write(1, "0", 1));
-	len = 0;
-	while (tempNum > 0)
+	if (p == 0)
 	{
-		tempNum /= 16;
-		len++;
+		write(1, "0x", 2);
+		return ;
 	}
-	return (write_result(len, num, isUpper));
+	++(*len);
+	write_p_sub(p / 16, len);
+	chr = p % 16;
+	if (chr < 10)
+		chr += '0';
+	else
+		chr += 'a' - 10;
+	write(1, &chr, 1);
 }
 
-int	write_p(unsigned long long int num)
+int	write_p(unsigned long long int p)
 {
-	int	result;
-	int	temp;
+	int	len;
 
-	result = 0;
-	result += write(1, "0x", 2);
-	if (num == 0)
-		result += write(1, "0", 1);
-	else
+	if (p == 0)
 	{
-		temp = write_x(num, 0, 0);
-		if (temp == -1)
-			return (-1);
-		result += temp;
+		write(1, "0x0", 3);
+		return (3);
 	}
-	return (result);
+	len = 0;
+	write_p_sub(p, &len);
+	return (len + 2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: woopark <woopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 18:00:02 by woopark           #+#    #+#             */
-/*   Updated: 2021/12/04 18:00:02 by woopark          ###   ########.fr       */
+/*   Updated: 2021/12/05 11:10:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*ft_itoa(int n);
 
 int		write_c(char c);
 int		write_s(char *s);
-int		write_p(unsigned long long int num);
+int		write_p(unsigned long long int p);
 int		write_diu(long long int num, int flag);
-int		write_x(unsigned long int num, int isUpper, int isX);
+int     write_x(unsigned int hex, int flag);
 
 int		ft_printf(const char *str, ...);
 

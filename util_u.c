@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util_u.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: woopark <woopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:59:46 by woopark           #+#    #+#             */
-/*   Updated: 2021/12/04 17:59:47 by woopark          ###   ########.fr       */
+/*   Updated: 2021/12/05 10:04:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ char	*ft_itoa_u(unsigned int n)
 		n /= 10;
 		i--;
 	}
-	if (n < 0)
-		result[0] = '-';
-	else
-		result[0] = n % 10 + '0';
+	result[0] = n % 10 + '0';
 	return (result);
 }

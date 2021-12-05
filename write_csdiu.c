@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_csdiu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: woopark <woopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 18:00:29 by woopark           #+#    #+#             */
-/*   Updated: 2021/12/04 18:00:30 by woopark          ###   ########.fr       */
+/*   Updated: 2021/12/05 10:21:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	write_diu(long long int	num, int flag)
 	if (flag == 0 || flag == 1)
 		arg = ft_itoa((int)num);
 	else
-		arg = ft_itoa_u((unsigned long long int)num);
+		arg = ft_itoa_u((unsigned int)num);
 	if (arg == NULL)
 		return (-1);
 	len = ft_strlen(arg);

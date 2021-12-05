@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: woopark <woopark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:59:33 by woopark           #+#    #+#             */
-/*   Updated: 2021/12/04 18:07:08 by woopark          ###   ########.fr       */
+/*   Updated: 2021/12/05 11:10:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static int	format(va_list ap, const char **str)
 	else if (**str == 'u')
 		result = write_diu(va_arg(ap, long long int), 2);
 	else if (**str == 'x')
-		result = write_x(va_arg(ap, unsigned long long int), 0, 1);
+		result = write_x(va_arg(ap, unsigned int), 0);
 	else if (**str == 'X')
-		result = write_x(va_arg(ap, unsigned long long int), 1, 1);
+		result = write_x(va_arg(ap, unsigned int), 1);
 	else if (**str == '%')
 		result = write(1, "%", 1);
 	(*str)++;
